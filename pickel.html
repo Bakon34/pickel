@@ -80,7 +80,7 @@
                 console.log('Username exists:', exists); // Log whether the username exists
                 return exists;
             } catch (error) {
-                console.error('Error fetching username:', error);
+                console.error('Error fetching username:', error.message || error); // Log the error message
                 return false; // Assume username doesn't exist if there's an error
             }
         }
