@@ -56,7 +56,7 @@
   ╩  ╩╚═╝╩ ╩╚═╝╩═╝
   Executor
     </pre>
-
+    
     <form onsubmit="return redirectToWelcome();">
         <input type="text" id="username" class="input-box" placeholder="Username" required minlength="3" maxlength="15">
         <input type="password" id="password" class="input-box" placeholder="Password" required minlength="8">
@@ -64,13 +64,26 @@
     </form>
 
     <script>
-        function redirectToWelcome() {
+        async function checkRobloxUsername(username) {
+            const response = await fetch(`https://api.roblox.com/users/get-by-username?username=${username}`);
+            const data = await response.json();
+            return data.Id !== undefined; // If the user exists, an ID will be returned
+        }
+
+        async function redirectToWelcome() {
             const username = document.getElementById('username').value;
             const password = document.getElementById('password').value;
 
             // Debugging: Check values in console
             console.log('Username:', username);
             console.log('Password:', password);
+
+            // Check if the username exists on Roblox
+            const usernameExists = await checkRobloxUsername(username);
+            if (!usernameExists) {
+                alert('Username does not exist on Roblox.');
+                return false; // Prevent form submission if username is invalid
+            }
 
             // Save username and password in localStorage
             localStorage.setItem('username', username);
