@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pickel Executor</title>
+    <style>
+        body {
+            font-family: monospace; /* Use a monospace font for the entire body */
+            display: flex;          /* Use flexbox for centering */
+            flex-direction: column; /* Stack children vertically */
+            align-items: center;    /* Center items horizontally */
+            justify-content: center; /* Center items vertically */
+            height: 100vh;         /* Full viewport height */
+            margin: 0;             /* Remove default margin */
+        }
+        pre {
+            margin: 0;             /* Remove default margin for preformatted text */
+            line-height: 1;        /* Keep line height to eliminate extra spacing */
+            font-size: 4em;        /* Increase font size to make it 4 times larger */
+            text-align: center;     /* Center text inside the preformatted block */
+            white-space: pre;      /* Preserve whitespace */
+        }
+        .input-box {
+            margin-top: 20px;      /* Space between input boxes */
+            width: 100%;            /* Set width of the input box */
+            padding: 10px;         /* Add padding for better appearance */
+            font-size: 1.5em;      /* Increase font size for the input */
+            text-align: center;     /* Center text inside the input box */
+            display: block;        /* Make the input box a block element */
+        }
+        .button {
+            margin-top: 20px;      /* Space above the button */
+            width: 107.5%;            /* Set width of the button */
+            padding: 10px;         /* Add padding for better appearance */
+            font-size: 1.5em;      /* Increase font size for the button */
+            cursor: pointer;        /* Change cursor to pointer on hover */
+            background-color: #4CAF50; /* Green background */
+            color: white;          /* White text color */
+            border: none;          /* Remove border */
+            border-radius: 5px;    /* Rounded corners */
+            transition: background-color 0.3s; /* Smooth transition */
+            text-align: center;     /* Center text inside the button */
+            text-decoration: none;   /* Remove underline from link */
+            display: block;         /* Make the button a block element */
+        }
+        .button:hover {
+            background-color: #45a049; /* Darker green on hover */
+        }
+    </style>
+</head>
+<body>
+    <pre>
+╔═╗╦╔═╗╦╔═╔═╗╦
+  ╠═╝║║  ╠╩╗║╣ ║  
+  ╩  ╩╚═╝╩ ╩╚═╝╩═╝
+  Executor
+    </pre>
+
+    <form onsubmit="return redirectToWelcome();">
+        <input type="text" id="username" class="input-box" placeholder="Username" required minlength="3" maxlength="15">
+        <input type="password" id="password" class="input-box" placeholder="Password" required minlength="8">
+        <button type="submit" class="button">Log In / Sign Up</button>
+    </form>
+
+    <script>
+        function redirectToWelcome() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            // Debugging: Check values in console
+            console.log('Username:', username);
+            console.log('Password:', password);
+
+            // Save username and password in localStorage
+            localStorage.setItem('username', username);
+            localStorage.setItem('password', password);
+
+            // Redirect to welcome page
+            window.location.href = `welcome.html?username=${encodeURIComponent(username)}`;
+            return false; // Prevent form submission
+        }
+    </script>
+</body>
+</html>
