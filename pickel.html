@@ -65,9 +65,20 @@
 
     <script>
         async function checkRobloxUsername(username) {
-            const response = await fetch(`https://api.roblox.com/users/get-by-username?username=${username}`);
-            const data = await response.json();
-            return data.Id !== undefined; // If the user exists, an ID will be returned
+            try {
+                const response = await fetch(`https://api.roblox.com/users/get-by-username?username=${username}`);
+                if (!response.ok) {
+                    console.error('Network response was not ok:', response.statusText);
+                    return false; // Assume username doesn't exist if there's a network error
+                }
+                const data = await response.json();
+                console.log('API Response:', data); // Log API response for debugging
+                // Check if the data contains an Id, indicating the user exists
+                return data.Id !== undefined && data.Id > 0;
+            } catch (error) {
+                console.error('Error fetching username:', error);
+                return false; // Assume username doesn't exist if there's an error
+            }
         }
 
         async function redirectToWelcome() {
